@@ -10,6 +10,8 @@
 	<modules>
 		<module>hadoop-study</module>
 		<module>spark-study</module>
+		<module>scala-study</module>
+		<module>java-study</module>
 	</modules>
 
 	<properties>

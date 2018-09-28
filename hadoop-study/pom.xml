@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>hadoop-study</artifactId>
 	<name>hadoop-study</name>
-	<description>hadoop相关知识学习</description>
+	<description>hadoop框架学习，总结工作中碰到的问题及解决方案</description>
 
 	<dependencies>
 		<!-- Hadoop依赖 -->
@@ -37,5 +37,4 @@
 	<build>
 		<finalName>${project.artifactId}</finalName>
 	</build>
-
 </project>
