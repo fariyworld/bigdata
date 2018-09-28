@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<wordcount>
+    <words.inputpath>D:/BONC/wordcount.txt</words.inputpath>
+    <resultpath>D:/BONC/wordcount_out</resultpath>
+    <!-- <queuename>bonc_songpeiqiang</queuename> -->
+    <!-- <words.inputpath>hdfs://mace:9000/test/data/wordcount*.txt</words.inputpath>
+    <resultpath>hdfs://mace:9000/test/data/out</resultpath> -->
+</wordcount>
