@@ -1,16 +1,17 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.mace.bigdata</groupId>
-    <artifactId>study</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>spark-study</artifactId>
-  <name>spark-study</name>
-  <description>spark框架学习，总结工作中碰到的问题及解决方案;主要使用scala语言开发spark（java作为辅助语言混合开发）</description>
-  
-  <dependencies>
-		<!-- 打包时需要打开一下依赖。运行时会报错 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.mace.bigdata</groupId>
+		<artifactId>study</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>spark-study</artifactId>
+	<name>spark-study</name>
+	<description>spark框架学习，总结工作中碰到的问题及解决方案;主要使用scala语言开发spark（java作为辅助语言混合开发）</description>
+
+	<dependencies>
+		<!-- 打包时需要打开一下依赖。运行时需注释, 否则会报错 -->
 		<!-- <dependency>
 			<groupId>org.apache.hadoop</groupId>
 			<artifactId>hadoop-client</artifactId>
@@ -29,12 +30,12 @@
 			<version>${hadoop.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>org.apache.spark</groupId>
-		    <artifactId>spark-hive_${scala.version}</artifactId>
-		    <version>${spark.version}</version>
-		    <scope>provided</scope>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-hive_${scala.version}</artifactId>
+			<version>${spark.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -43,18 +44,27 @@
 			<version>${spark.version}</version>
 			<scope>provided</scope>
 			<exclusions>
-                <exclusion>
-                    <groupId>org.apache.hadoop</groupId>
-                    <artifactId>hadoop-client</artifactId>
-                </exclusion>
-            </exclusions>
+				<exclusion>
+					<groupId>org.apache.hadoop</groupId>
+					<artifactId>hadoop-client</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-sql_${scala.version}</artifactId>
 			<version>${spark.version}</version>
 			<scope>provided</scope>
+		</dependency>
+		https://mvnrepository.com/artifact/org.apache.spark/spark-streaming
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-streaming_${scala.version}</artifactId>
+			<version>${spark.version}</version>
+			<scope>provided</scope>
 		</dependency> -->
+
+
 	</dependencies>
 
 	<build>
@@ -146,6 +156,6 @@
 		</pluginManagement>
 
 	</build>
-  
-  
+
+
 </project>

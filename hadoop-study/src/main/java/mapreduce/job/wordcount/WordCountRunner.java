@@ -8,8 +8,11 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.log4j.Logger;
 
 public class WordCountRunner {
+	
+	private static final Logger LOG = Logger.getLogger(WordCountRunner.class);
 
 	public static void main(String[] args) throws Exception {
 		
@@ -27,22 +30,23 @@ public class WordCountRunner {
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
 		
-		args = new String[2];
-		args[0] = "D:/BONC/wordcount.txt";
-		args[1] = "D:/BONC/wordcount_out";
+//		args = new String[2];
+//		args[0] = "D:/BONC/wordcount.txt";
+//		args[1] = "D:/BONC/wordcount_out";
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
-		FileOutputFormat.setCompressOutput(job, false); 
+		FileOutputFormat.setCompressOutput(job, false);
+//		FileOutputFormat.setOutputCompressorClass(job, SnappyCodec.class);
 		
         Path path = new Path(args[1]);
         FileSystem fileSystem = path.getFileSystem(conf);
         if (fileSystem.exists(path)) {
 			fileSystem.delete(path, true);
-			System.out.println(args[1]+"已存在，删除");
+			LOG.info(args[1]+"已存在，删除");
 		}
 		
 		if(job.waitForCompletion(true)){
-			System.out.println("success");
+			LOG.info("success");
 		}
 	}
 }

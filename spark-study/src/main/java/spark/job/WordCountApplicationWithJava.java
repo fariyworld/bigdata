@@ -15,6 +15,7 @@ import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.api.java.function.VoidFunction;
 
 import scala.Tuple2;
+import utils.PropertiesUtil;
 
 /**
  * 提交job命令：spark-submit --master yarn --class spark.job.WordCountApplicationWithJava spark-study-0.0.1-SNAPSHOT.jar /test/data/wc.txt
@@ -61,7 +62,7 @@ public class WordCountApplicationWithJava {
 
 			@Override
 			public Iterator<String> call(String arg0) throws Exception {
-				
+				PropertiesUtil.getRedisProperties("redis_config.properties", "UTF-8");
 				return Arrays.asList(arg0.split(" ")).iterator();
 			}
 		});
