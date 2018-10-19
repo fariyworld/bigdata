@@ -15,6 +15,7 @@ import java.util.Enumeration;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
@@ -30,8 +31,8 @@ public class App01 {
 	public void test1() {
 
 		try {
-			String gzFile = "D:\\tmp\\tmp.zip";
-			ZipFile zipFile = new ZipFile(gzFile, Charset.forName("GBK"));
+			String gzFile = "D:\\tmp\\uncompress\\multicompress.zip";
+			ZipFile zipFile = new ZipFile(gzFile/* , Charset.forName("GBK") */);
 			BufferedReader reader = null;
 			String line = null;
 			for (Enumeration<? extends ZipEntry> entries = zipFile.entries(); entries.hasMoreElements();) {
@@ -54,7 +55,7 @@ public class App01 {
 	public void test2() {
 		try {
 			String dest = "D:\\tmp\\uncompress";
-			String gzFile = "D:\\BONC\\Shaanxi\\LTE_MRGZ_HUAWEI_6.53.64.165_201809280000_201809280015_001.tar.gz";
+			String gzFile = "D:\\BONC\\Shaanxi\\data\\hw\\LTE_MRGZ_HUAWEI_6.53.64.165_201809280000_201809280015_001.tar.gz";
 			GzipCompressorInputStream gzipCompressorInputStream = new GzipCompressorInputStream(
 					new FileInputStream(gzFile), true);
 			TarArchiveInputStream tin = new TarArchiveInputStream(gzipCompressorInputStream);
@@ -154,25 +155,98 @@ public class App01 {
 	}
 
 	@Test
-	public void tarGz() {
-		TarInputStream tarInputStream = null;
-		String tarGzFile = "D:\\BONC\\Shaanxi\\LTE_MRGZ_HUAWEI_6.53.64.165_201809280000_201809280015_001.tar.gz";
+	public void unZip() {
+		String zipFile = "D:\\tmp\\uncompress\\multicompress.zip";
+		byte[] contents = new byte[1024 * 4];
+		String value = null;
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		try {
-			File file = new File(tarGzFile);
-			tarInputStream = new TarInputStream(new GZIPInputStream(new FileInputStream(file)));
-			
-			TarEntry entry = null;
-			while( (entry = tarInputStream.getNextEntry()) != null ){  
-				if(entry.isDirectory()){//是目录
-					System.out.println(entry.getName());
-				}else{//是文件
-					System.out.println(entry.getName());
-					System.out.println(entry.getFile()== null);
-				}
+			ZipInputStream zin = new ZipInputStream(new FileInputStream(zipFile));
+			ZipEntry ze;
+			while ((ze = zin.getNextEntry()) != null) {
+				System.out.println(ze.getName());
+				// int len;
+				// while ((len = zin.read(contents, 0, contents.length)) != -1)
+				// {
+				// bos.write(contents, 0, len);
+				// }
+				IOUtils.copy(zin, bos);
+				bos.write("\n\r".getBytes());
+				// System.out.println(bos.size());
+				// System.out.println(bos.toString());
 			}
-			
-			
+			value = bos.toString();
+			// System.out.println(value);
+			bos.close();
+			zin.close();
+			String[] split = value.split("\n\r", -1);
+			System.out.println(split.length);
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			// TODO: handle finally clause
+		}
+	}
 
+	@Test
+	public void unMultiZip() {
+		String path = "D:\\tmp\\uncompress\\multicompress.zip";
+		String dest = "D:\\tmp\\uncompress";
+		byte[] contents = new byte[1024 * 4];
+		String value = null;
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		try {
+			ZipFile zipFile = new ZipFile(path);
+			for (Enumeration<? extends ZipEntry> entries = zipFile.entries(); entries.hasMoreElements();) {
+				ZipEntry entry = entries.nextElement();
+				System.out.println( "解压 - " + entry.getName());
+				File destPath = new File(dest, entry.getName());
+				if (entry.isDirectory()) {
+					destPath.mkdirs();
+	            } else {
+	            	destPath.createNewFile();
+	                FileOutputStream fos = new FileOutputStream(destPath);
+	                InputStream ins = zipFile.getInputStream(entry);
+	                int len = -1;
+					while((len = ins.read(contents))!=-1){
+						fos.write(contents, 0, len);
+					}
+					ins.close();
+					fos.close();
+	            }
+			}
+			value = bos.toString();
+			System.out.println(value);
+			bos.close();
+			String[] split = value.split("\n\r", -1);
+			System.out.println(split.length);
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			// TODO: handle finally clause
+		}
+	}
+	
+	
+	
+	@Test
+	public void unMultiZip2() {
+		String path = "D:\\tmp\\uncompress\\multicompress.zip";
+		byte[] contents = new byte[1024 * 4];
+		String value = null;
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		try {
+			ZipInputStream zins = new ZipInputStream(new FileInputStream(path));
+			ZipEntry ze;
+			while ((ze = zins.getNextEntry()) != null) {
+				System.out.println(ze.getName());
+				IOUtils.copy(zins, bos);
+			}
+			value = bos.toString();
+			System.out.println(value);
+			bos.close();
+			String[] split = value.split("\n\r", -1);
+			System.out.println(split.length);
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {

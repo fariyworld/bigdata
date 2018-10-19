@@ -49,6 +49,15 @@ public class App01 {
 		list.add(1);
 		System.out.println(list.get(0));
 	}
+	
+	
+	@Test
+	public void test04(){
+		
+		String path = "FDD_LTE_MRE_HUAWEI_552961_20180301170000.zip";
+		
+		System.out.println(path.endsWith(".zip"));
+	}
 }
 
 

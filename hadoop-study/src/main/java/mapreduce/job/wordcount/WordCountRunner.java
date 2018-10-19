@@ -30,6 +30,8 @@ public class WordCountRunner {
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
 		
+		job.addCacheFile(new Path(args[2]).toUri());
+		
 //		args = new String[2];
 //		args[0] = "D:/BONC/wordcount.txt";
 //		args[1] = "D:/BONC/wordcount_out";

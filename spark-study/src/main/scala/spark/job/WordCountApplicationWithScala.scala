@@ -60,7 +60,7 @@ object WordCountApplicationWithScala {
       val longAccum = sc.longAccumulator("count")
       val doubleAccum = sc.doubleAccumulator("ratio")
 
-      sc.textFile(wordsInputPath, 1)
+      val rdd = sc.textFile(wordsInputPath, 1)
         .flatMap(lineTxt => StringUtils.splitByWholeSeparatorPreserveAllTokens(lineTxt, " "))
         .mapPartitions(iter => {
           val resultList = new ListBuffer[Tuple2[String, Int]]()
@@ -73,8 +73,10 @@ object WordCountApplicationWithScala {
           }
           resultList.iterator
         })
-        .reduceByKey(_ + _, 1)
-        .saveAsTextFile(resultPath)
+        .reduceByKey(_ + _, 1)/*.cache()*/
+      
+      LOGGER.warn(rdd.first().toString())
+      rdd.saveAsTextFile(resultPath)
 
       LOGGER.warn("longAccum value == " + longAccum.value)
       LOGGER.warn("doubleAccum value == " + doubleAccum.value)

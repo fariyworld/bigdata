@@ -2,7 +2,6 @@ package mapreduce.input.filter;
 
 import java.io.IOException;
 
-import org.apache.hadoop.conf.Configurable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;

@@ -33,7 +33,7 @@ public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritabl
 			Path cachePath1 = new Path(cacheFiles[0]);
 			 BufferedReader reader = null;  
 		        try {  
-		        	reader = new BufferedReader(new FileReader(cachePath1.toString()));
+		        	reader = new BufferedReader(new FileReader(cachePath1.getName()));
 		            String lineTxt = null;  
 		            while ((lineTxt = reader.readLine()) != null) { 
 		            	LOG.info(lineTxt);

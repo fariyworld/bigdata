@@ -59,23 +59,33 @@ public class XmlCompressedCombineFileWritable implements WritableComparable<XmlC
 		}
 		return f;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof XmlCompressedCombineFileWritable)
-			return this.compareTo((XmlCompressedCombineFileWritable) obj) == 0;
-		return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		XmlCompressedCombineFileWritable other = (XmlCompressedCombineFileWritable) obj;
+		if (fileName == null) {
+			if (other.fileName != null)
+				return false;
+		} else if (!fileName.equals(other.fileName))
+			return false;
+		if (offset != other.offset)
+			return false;
+		return true;
 	}
 
 	@Override
 	public int hashCode() {
-
-		final int hashPrime = 47;
-		int hash = 13;
-		hash = hashPrime * hash + (this.fileName != null ? this.fileName.hashCode() : 0);
-		hash = hashPrime * hash + (int) (this.offset ^ (this.offset >>> 16));
-
-		return hash;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fileName == null) ? 0 : fileName.hashCode());
+		result = prime * result + (int) (offset ^ (offset >>> 32));
+		return result;
 	}
 
 	@Override
