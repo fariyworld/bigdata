@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 import org.apache.spark.Accumulator;
+import org.apache.spark.SerializableWritable;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -35,7 +36,7 @@ public class WordCountApplicationWithJava {
 		
 		LOG.warn("defaultMinPartitions == " + sc.defaultMinPartitions());
 		LOG.warn("defaultParallelism == " + sc.defaultParallelism());
-		
+				
 		Accumulator<Double> doubleAccumulator = sc.doubleAccumulator(Double.MIN_VALUE, "doubleAccum");
 		
 //		Accumulator<Long> longAccum = sc.accumulator(Long.MIN_VALUE, "longAccum" , new AccumulatorParam<Long>(){

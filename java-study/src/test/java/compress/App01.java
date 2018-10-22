@@ -1,8 +1,6 @@
 package compress;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,8 +8,9 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -21,9 +20,8 @@ import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.apache.commons.compress.utils.IOUtils;
-import org.apache.tools.tar.TarEntry;
-import org.apache.tools.tar.TarInputStream;
 import org.junit.Test;
+import org.omg.CORBA.portable.ValueBase;
 
 public class App01 {
 
@@ -199,21 +197,21 @@ public class App01 {
 			ZipFile zipFile = new ZipFile(path);
 			for (Enumeration<? extends ZipEntry> entries = zipFile.entries(); entries.hasMoreElements();) {
 				ZipEntry entry = entries.nextElement();
-				System.out.println( "解压 - " + entry.getName());
+				System.out.println("解压 - " + entry.getName());
 				File destPath = new File(dest, entry.getName());
 				if (entry.isDirectory()) {
 					destPath.mkdirs();
-	            } else {
-	            	destPath.createNewFile();
-	                FileOutputStream fos = new FileOutputStream(destPath);
-	                InputStream ins = zipFile.getInputStream(entry);
-	                int len = -1;
-					while((len = ins.read(contents))!=-1){
+				} else {
+					destPath.createNewFile();
+					FileOutputStream fos = new FileOutputStream(destPath);
+					InputStream ins = zipFile.getInputStream(entry);
+					int len = -1;
+					while ((len = ins.read(contents)) != -1) {
 						fos.write(contents, 0, len);
 					}
 					ins.close();
 					fos.close();
-	            }
+				}
 			}
 			value = bos.toString();
 			System.out.println(value);
@@ -226,27 +224,54 @@ public class App01 {
 			// TODO: handle finally clause
 		}
 	}
-	
-	
-	
+
 	@Test
 	public void unMultiZip2() {
-		String path = "D:\\tmp\\uncompress\\multicompress.zip";
-		byte[] contents = new byte[1024 * 4];
+		String path = "D:\\tmp\\uncompress\\multicompressGz.tar.gz";
+		String dest = "D:\\tmp\\uncompress\\test";
 		String value = null;
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		TarArchiveInputStream taris = null;
+		TarArchiveEntry entry = null;
+		FileOutputStream out = null;
+		List<File> fileList = new ArrayList<>();
+		TarArchiveInputStream tmpins = null;
 		try {
-			ZipInputStream zins = new ZipInputStream(new FileInputStream(path));
-			ZipEntry ze;
-			while ((ze = zins.getNextEntry()) != null) {
-				System.out.println(ze.getName());
-				IOUtils.copy(zins, bos);
+			taris = new TarArchiveInputStream(new GZIPInputStream(new FileInputStream(path)));
+			while ((entry = taris.getNextTarEntry()) != null) {
+				File destPath = new File(dest, entry.getName());
+				if (entry.isDirectory()) {
+					if (!destPath.exists()) {
+						destPath.mkdir();
+					}
+					continue;
+				} else {
+					System.out.println(entry.getName());
+					System.out.println(entry.getFile() == null);
+					fileList.add(destPath);
+					destPath.createNewFile();
+					out = new FileOutputStream(destPath);
+					IOUtils.copy(taris, out);
+					out.close();
+				}
+			}
+			taris.close();
+			for (File file : fileList) {
+				tmpins = new TarArchiveInputStream(new GZIPInputStream(new FileInputStream(file)));
+				entry = null;
+				while ((entry = tmpins.getNextTarEntry()) != null) {
+					System.out.println(entry.getName());
+					IOUtils.copy(tmpins, bos);
+					bos.write("\r\n".getBytes());
+				}
+				tmpins.close();
 			}
 			value = bos.toString();
-			System.out.println(value);
-			bos.close();
-			String[] split = value.split("\n\r", -1);
+			String[] split = value.split("\r\n", -1);
 			System.out.println(split.length);
+			for (int i = 0; i < split.length - 1; i++) {
+				System.out.println(split[i]);
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {

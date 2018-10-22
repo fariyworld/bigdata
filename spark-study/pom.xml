@@ -12,7 +12,7 @@
 
 	<dependencies>
 		<!-- 打包时需要打开一下依赖。运行时需注释, 否则会报错 -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.apache.hadoop</groupId>
 			<artifactId>hadoop-client</artifactId>
 			<version>${hadoop.version}</version>
@@ -56,13 +56,12 @@
 			<version>${spark.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		https://mvnrepository.com/artifact/org.apache.spark/spark-streaming
 		<dependency>
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-streaming_${scala.version}</artifactId>
 			<version>${spark.version}</version>
 			<scope>provided</scope>
-		</dependency> -->
+		</dependency>
 
 
 	</dependencies>

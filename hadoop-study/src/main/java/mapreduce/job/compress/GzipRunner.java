@@ -40,6 +40,9 @@ public class GzipRunner {
 			for (int i = 0; i < paramLength - 1; i++) {
 				LOG.info(paramArray[i]);
 			}
+			if(paramLength == 1){
+				LOG.info(inputString);
+			}
 			context.write(outkey, new Text("1"));
 		}
 		
@@ -66,7 +69,7 @@ public class GzipRunner {
 		
 		conf.set("xmlinput.start", "<measurement>"); 
  		conf.set("xmlinput.end", "</measurement>");
- 		conf.setBoolean("isMultiLevelCompression", false);
+ 		conf.setBoolean("isMultiLevelCompression", true);
  		
  		Job job = Job.getInstance(conf);
 		job.setJarByClass(GzipRunner.class);

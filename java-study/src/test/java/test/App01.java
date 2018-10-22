@@ -57,6 +57,8 @@ public class App01 {
 		String path = "FDD_LTE_MRE_HUAWEI_552961_20180301170000.zip";
 		
 		System.out.println(path.endsWith(".zip"));
+		
+		System.out.println(System.getProperty("user.home"));
 	}
 }
 
