@@ -35,6 +35,7 @@ public class WordCountBolt extends BaseRichBolt  {
 	public void execute(Tuple input) {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("2.execute(Tuple input)...");
+			LOGGER.debug("input mid == " + input.getMessageId());
 		}
 		String word = input.getStringByField("word");
 		
@@ -50,7 +51,8 @@ public class WordCountBolt extends BaseRichBolt  {
 			LOGGER.debug(word+"\t"+count);
 		}
 		// 发送单词和计数（分别对应字段word和count）
-		_collector.emit(new Values(word, count));
+		_collector.emit(input, new Values(word, count));
+		_collector.ack(input);
 	}
 
 	@Override

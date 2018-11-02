@@ -18,11 +18,11 @@ public class WordCountTopology {
 		// 创建一个拓扑
 		TopologyBuilder builder = new TopologyBuilder();
 		// 设置Spout，这个Spout的名字叫做"Spout"，设置并行度为2
-		builder.setSpout("Spout", new RandomWordSpout(), 1);
+		builder.setSpout("Spout", new RandomWordSpout(), 2);
 		// 设置Blot——“Split”，并行度为2，它的数据来源是Spout的
-		builder.setBolt("Split", new SplitWordBolt(), 1).shuffleGrouping("Spout");
+		builder.setBolt("Split", new SplitWordBolt(), 2).shuffleGrouping("Spout");
 		// 设置slot——“Count”,你并行度为2，它的数据来源是Split的word字段相同的数据
-		builder.setBolt("Count", new WordCountBolt(), 1).fieldsGrouping("Split", new Fields("word"));
+		builder.setBolt("Count", new WordCountBolt(), 2).fieldsGrouping("Split", new Fields("word"));
 		Config conf = new Config();
 		conf.setDebug(true);
 		conf.setMaxTaskParallelism(3);

@@ -2,6 +2,7 @@ package topology.wordcount;
 
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,7 +59,7 @@ public class RandomWordSpout extends BaseRichSpout {
 		// 随机选择一组单词
 		String word = words[_random.nextInt(words.length)];
 		// 发送该组单词给Bolt
-		_collector.emit(new Values(word));
+		_collector.emit(new Values(word), UUID.randomUUID().toString());
 	}
 
 	

@@ -37,20 +37,23 @@ public class SplitWordBolt extends BaseRichBolt {
 	}
 
 	
-	/**
-	 * 处理上游的每一个数据
-	 */
-	@Override
-	public void execute(Tuple input) {
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("2.execute(Tuple input)...");
-		}
-		String word = input.getStringByField("word");
-		String[] wordArray = word.split("\\s", -1);
-		for (String string : wordArray) {
-			_collector.emit(new Values(string));
-		}
+/**
+ * 处理上游的每一个数据
+ */
+@Override
+public void execute(Tuple input) {
+	if (LOGGER.isDebugEnabled()) {
+		LOGGER.debug("2.execute(Tuple input)...");
+		LOGGER.debug("input mid == " + input.getMessageId());
 	}
+	String word = input.getStringByField("word");
+	String[] wordArray = word.split("\\s", -1);
+	for (String string : wordArray) {
+		_collector.emit(input, new Values(string));
+	}
+	_collector.ack(input);
+//	_collector.fail(input);
+}
 
 	
 	/**
