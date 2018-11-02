@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 
 import business.entity.Person;
 import mapreduce.shuffle.CustomCombineKey;
+import mapreduce.shuffle.MyPartitioner;
 
 public class TestMapreduce {
 
@@ -72,7 +73,7 @@ public class TestMapreduce {
 		job.setOutputKeyClass(NullWritable.class);
 		job.setOutputValueClass(Text.class);
 		
-//		job.setPartitionerClass(cls);
+		job.setPartitionerClass(MyPartitioner.class);
 		
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));

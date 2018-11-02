@@ -14,6 +14,7 @@ public class ChinaPerson extends Person {
 
 	@Override
 	public boolean equals(Object obj) {
+		System.out.println("ChinaPerson equals");
 		if (this == obj)
 			return true;
 		if (obj == null)

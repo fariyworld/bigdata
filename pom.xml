@@ -12,17 +12,21 @@
 		<module>spark-study</module>
 		<module>scala-study</module>
 		<module>java-study</module>
+		<module>storm-study</module>
 	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.version>3.6.0</maven.compiler.version>
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+		<maven.compiler.jdk.version>1.7</maven.compiler.jdk.version>
 		<maven.scala.plugin.version>2.15.2</maven.scala.plugin.version>
 		<hadoop.version>2.7.5</hadoop.version>
 		<spark.version>2.3.1</spark.version>
 		<scala.version>2.11</scala.version>
 		<scala.details.version>2.11.8</scala.details.version>
+		<storm.version>0.9.5</storm.version>
 		<!-- log4j日志文件管理包版本 --> 
 		<slf4j.version>1.7.25</slf4j.version> 
 		<log4j.version>1.2.17</log4j.version> 
@@ -62,6 +66,16 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
+                <configuration>
+                    <source>${maven.compiler.jdk.version}</source>
+                    <target>${maven.compiler.jdk.version}</target>
+                    <encoding>${maven.compiler.encoding}</encoding>
+                </configuration>
+            </plugin>
 		</plugins>
 
 	</build>

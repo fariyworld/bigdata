@@ -37,7 +37,7 @@ public class WordCountApplicationWithJava {
 		LOG.warn("defaultMinPartitions == " + sc.defaultMinPartitions());
 		LOG.warn("defaultParallelism == " + sc.defaultParallelism());
 				
-		Accumulator<Double> doubleAccumulator = sc.doubleAccumulator(Double.MIN_VALUE, "doubleAccum");
+		final Accumulator<Double> doubleAccumulator = sc.doubleAccumulator(Double.MIN_VALUE, "doubleAccum");
 		
 //		Accumulator<Long> longAccum = sc.accumulator(Long.MIN_VALUE, "longAccum" , new AccumulatorParam<Long>(){
 //			private static final long serialVersionUID = 770193566372144994L;

@@ -11,6 +11,28 @@
 	<description>spark框架学习，总结工作中碰到的问题及解决方案;主要使用scala语言开发spark（java作为辅助语言混合开发）</description>
 
 	<dependencies>
+		<!-- 如果本地有scala环境可不需要下面这三个依赖。直接依赖本地scala环境即可 -->
+		<!-- scala-library Scala编程语言的标准库 -->
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>${scala.details.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- scala-compiler Scala编程语言的编译器 -->
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-compiler</artifactId>
+			<version>${scala.details.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- scala-reflect -->
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-reflect</artifactId>
+			<version>${scala.details.version}</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- 打包时需要打开一下依赖。运行时需注释, 否则会报错 -->
 		<dependency>
 			<groupId>org.apache.hadoop</groupId>

@@ -5,6 +5,8 @@ public class Person {
 	public String name;
 	public Integer age;
 	
+	public static double L0;
+	
 	public String getName() {
 		return name;
 	}
@@ -16,6 +18,10 @@ public class Person {
 	}
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+	
+	public static void setL0(double newL0){
+		L0 = newL0;
 	}
 	
 	@Override

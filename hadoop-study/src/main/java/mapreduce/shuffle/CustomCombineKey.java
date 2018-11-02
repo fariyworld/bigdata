@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import business.entity.Person;
 
 /**
- * hadoop job mapreduce key 用来分区、分组、二次排序
+ * 分区、快排、分组、二次排序（默认会调用key里定义的方法）
  *	
  */
 public class CustomCombineKey implements WritableComparable<CustomCombineKey> {
@@ -35,24 +35,44 @@ public class CustomCombineKey implements WritableComparable<CustomCombineKey> {
 		this.age = age;
 		this.info = info;
 	}
-
+	
+	/**
+	 * 序列化 -- 写
+	 */
 	@Override
 	public void write(DataOutput out) throws IOException {
 		this.name.write(out);
 		this.age.write(out);
 		this.info.write(out);
 	}
-
+	
+	/**
+	 * 序列化 -- 读
+	 */
 	@Override
 	public void readFields(DataInput in) throws IOException {
 		this.name.readFields(in);
 		this.age.readFields(in);
 		this.info.readFields(in);
 	}
-
+	
+	/**
+	 * 比较
+	 */
+	@Override
+	public int compareTo(CustomCombineKey other) {
+		LOG.info("quickSort() 调用了compareTo......");
+		if(!this.age.equals(other.getAge())){
+			return this.age.compareTo(other.getAge());
+		}else if(!this.info.equals(other.getInfo())){
+			return this.info.compareTo(other.getInfo());
+		}
+		return 0;
+	}
+	
 	@Override
 	public int hashCode() {
-		LOG.info("调用了hashcode......");
+		LOG.info("HashParatition 调用了hashcode......");
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((age == null) ? 0 : age.hashCode());
@@ -76,18 +96,7 @@ public class CustomCombineKey implements WritableComparable<CustomCombineKey> {
 			return false;
 		return true;
 	}
-
-	@Override
-	public int compareTo(CustomCombineKey other) {
-		LOG.info("调用了compareTo......");
-		if(!this.age.equals(other.getAge())){
-			return this.age.compareTo(other.getAge());
-		}else if(!this.info.equals(other.getInfo())){
-			return this.info.compareTo(other.getInfo());
-		}
-		return 0;
-	}
-
+	
 	public Text getName() {
 		return name;
 	}
@@ -117,17 +126,4 @@ public class CustomCombineKey implements WritableComparable<CustomCombineKey> {
 		this.age.set(person.getAge());
 		return this;
 	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("CustomCombineKey [name=");
-		builder.append(name);
-		builder.append(", age=");
-		builder.append(age);
-		builder.append("]");
-		return builder.toString();
-	}
-	
-	
 }
