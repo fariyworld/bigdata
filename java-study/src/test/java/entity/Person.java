@@ -1,6 +1,6 @@
 package entity;
 
-public class Person {
+public class Person<T> {
 
 	public String name;
 	public Integer age;

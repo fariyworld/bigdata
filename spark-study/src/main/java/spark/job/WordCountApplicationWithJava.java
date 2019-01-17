@@ -57,6 +57,8 @@ public class WordCountApplicationWithJava {
 		
 		JavaRDD<String> lines = sc.textFile(args[0]);
 		
+		LOG.warn(lines.count());
+		
 		JavaRDD<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
 
 			private static final long serialVersionUID = 7353620161351793108L;

@@ -26,10 +26,13 @@
 		<spark.version>2.3.1</spark.version>
 		<scala.version>2.11</scala.version>
 		<scala.details.version>2.11.8</scala.details.version>
-		<storm.version>0.9.5</storm.version>
+		<storm.version>1.1.1</storm.version>
+		<kafka.version>1.1.0</kafka.version>
 		<!-- log4j日志文件管理包版本 --> 
 		<slf4j.version>1.7.25</slf4j.version> 
-		<log4j.version>1.2.17</log4j.version> 
+		<log4j.version>1.2.17</log4j.version>
+		<parquet.version>1.8.1</parquet.version>
+		<jodd.version>3.3.8</jodd.version> 
 	</properties>
 
 	<dependencies>
@@ -47,12 +50,12 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
 					<appendAssemblyId>false</appendAssemblyId>
-					<descriptorRefs>
+					<!-- <descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
+					</descriptorRefs> -->
 					<!-- <archive>
 	                    <manifest>
-	                        <mainClass>主类完整类名</mainClass>
+	                        <mainClass>topology.kafkademo.KafkaTopologyDemo</mainClass>
 	                    </manifest>
                 	</archive> -->
 				</configuration>
@@ -63,6 +66,12 @@
 						<goals>
 							<goal>assembly</goal>
 						</goals>
+						<configuration>
+							<!-- assembly.xml文件路径 -->
+							<descriptors>
+								<descriptor>assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

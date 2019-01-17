@@ -5,13 +5,20 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
-import org.junit.Before;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.junit.Test;
 
+import config.KafkaProperties;
+import dataprocess.utils.XmlParse;
 import entity.Person;
 
 public class App01 {
@@ -147,7 +154,7 @@ public class App01 {
 		}
 	}
 	
-	@Before
+//	@Before
 	public void setL0(){
 		System.out.println(Person.L0);
 		Person.setL0(105D);
@@ -157,6 +164,102 @@ public class App01 {
 	public void test12(){
 		System.out.println(Person.L0);
 	}
+	
+	
+	@Test
+	public void test13(){
+		
+		LinkedList<Integer> linkedList = new LinkedList<>();
+		linkedList.add(2);
+		linkedList.add(1);
+		linkedList.add(3);
+		
+		for (Integer integer : linkedList) {
+			System.out.println(integer);
+		}
+		
+		System.out.println(linkedList.removeLast());
+		
+		for (Integer integer : linkedList) {
+			System.out.println(integer);
+		}
+	}
+	
+	/**
+	 * 计算指定consumer group在__consumer_offsets topic中分区信息
+	 * Kafka会使用下面公式计算该group位移保存在__consumer_offsets的哪个分区上：
+	 * Math.abs(groupID.hashCode()) % numPartitions
+	 */
+	@Test
+	public void test14(){
+		// 31
+		System.out.println(Math.abs("test-consumer-group".hashCode()) % 50);
+	}
+	
+	
+	@Test
+	public void test15(){
+		System.out.println("aredid_" + "".hashCode()%110);
+		System.out.println("aredid_" + "757#3".hashCode()%110);
+		System.out.println("aredid_" + "757#10".hashCode()%110);
+		System.out.println("aredid_" + "757#3".hashCode()%110);
+		System.out.println("aredid_" + "756#3".hashCode()%110);
+		System.out.println("aredid_" + "756#5".hashCode()%110);
+	}
+	
+	
+	@Test
+	public void test16(){
+		
+		System.out.println(561908*256+2);
+	}
+	
+	@Test
+	public void test17(){
+		
+		if(true && sayhello()){
+			System.out.println(",world");
+		}
+	}
+	
+	public boolean sayhello(){
+		System.out.print("hello");
+		return true;
+	}
+	
+	
+	@Test
+	public void test18(){
+		
+		XmlParse.readXml("D:\\Workspaces\\eclipse_4.5_workspace\\04-cqlbs\\doc\\研发\\重庆实时场景营销交接文档\\scene.xml");
+	}
+	
+	/**
+	 * kafka 消费者
+	 */
+	@Test
+	public void test19(){
+		KafkaProperties.consumerConfigPath = "kafkaConfig.properties";
+		Properties props = new Properties(); 
+		try {
+			props.load(this.getClass().getClassLoader().getResourceAsStream(KafkaProperties.consumerConfigPath));
+			props.put("client.id", "win10-test-consumer-1");
+			Thread.sleep(500);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		@SuppressWarnings("resource")
+		KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
+		// 配置topic
+		consumer.subscribe(Arrays.asList("test"));
+		while (true) {
+			ConsumerRecords<String, String> records = consumer.poll(1000);
+			for (ConsumerRecord<String, String> record : records) {
+				System.out.println(String.format("timestamp == %d, offset == %d, partition == %d, key == %s, value == %s", record.timestamp(), record.offset(), record.partition(), record.key(), record.value()));
+			}
+		}
+	}
+	
 }
 
 

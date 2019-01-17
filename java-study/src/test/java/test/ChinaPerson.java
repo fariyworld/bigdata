@@ -2,7 +2,9 @@ package test;
 
 import entity.Person;
 
-public class ChinaPerson extends Person {
+public class ChinaPerson<T> extends Person {
+
+	T[] arr = (T[]) new Object[11];
 
 	@Override
 	public int hashCode() {
