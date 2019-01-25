@@ -126,4 +126,19 @@ public class CustomCombineKey implements WritableComparable<CustomCombineKey> {
 		this.age.set(person.getAge());
 		return this;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("CustomCombineKey [name=");
+		builder.append(name);
+		builder.append(", age=");
+		builder.append(age);
+		builder.append(", info=");
+		builder.append(info);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	
 }

@@ -49,7 +49,7 @@ public class WordCountRunner2 {
         
         //TODO 文件名过滤 - 通配符过滤  pathPattern
         Path pathPattern = new Path(args[0] + File.separator + args[1] + File.separator +"*");
-        FileStatus[] fileStatus = fileSystem.globStatus(pathPattern, new RegexPathFilter("^.*[_]" + args[1] +  args[2] + "\\d+[_].*$", conf));
+        FileStatus[] fileStatus = fileSystem.globStatus(pathPattern, new RegexPathFilter(conf, "^.*[_]" + args[1] +  args[2] + "\\d+[_].*$", "mr"));
         
         if(fileStatus.length == 0){
         	System.out.println("没有符合的文件,退出程序...");

@@ -2,11 +2,14 @@ package mapreduce.input.filter;
 
 import java.io.IOException;
 
+import org.apache.hadoop.conf.Configurable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.PathFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 需要过滤的符合正则
@@ -15,16 +18,20 @@ import org.apache.hadoop.fs.PathFilter;
  *
  */
 public class RegexPathFilter implements PathFilter {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(RegexPathFilter.class);
 
 	private Configuration conf;
 	FileSystem fs;
-	private final String regex;
-	private long fileLen;
+	private final String regex;//正则
+	private final String key;//符合正则的该数据的总大小
 
-	public RegexPathFilter(String regex, Configuration conf) {
-		this.regex = regex;
+	
+	public RegexPathFilter(Configuration conf, String regex, String key) {
 		this.conf = conf;
-		fileLen = 0;
+		this.regex = regex;
+		this.key = key;
+		LOGGER.info("开始匹配 {} 符合 {} 的文件...", key, regex);
 	}
 
 	@Override
@@ -38,10 +45,9 @@ public class RegexPathFilter implements PathFilter {
         }
         if (!fstatus.isDirectory()) {
         	if(path.getName().matches(regex)){
-        		System.out.println(path.toString());//file:/D:/Hadoop/study/data/20180930/172.16.92.5_201809301111_wordcount.txt
-    			System.out.println(path.getName());//172.16.92.5_201809301111_wordcount.txt
-    			fileLen += fstatus.getLen();
-    			conf.setLong("fileSize", fileLen);
+        		LOGGER.info("符合正则的文件名path.getName(): {}", path.getName());
+        		LOGGER.info("符合正则的文件路径path.toString(): {}", path.toString());
+    			conf.setLong(key, conf.getLong(key, 0L) + fstatus.getLen());
     			return true;
     		}else{
     			return false;

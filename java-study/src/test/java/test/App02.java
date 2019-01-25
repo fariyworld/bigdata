@@ -1,20 +1,26 @@
 package test;
 
-import entity.OverDueMap;
-import org.junit.Test;
-import scala.Int;
-import sun.util.resources.LocaleNames_ga;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import org.junit.Test;
 
 public class App02 {
 
@@ -208,13 +214,13 @@ public class App02 {
 
 	@Test
 	public void test07(){
-		OverDueMap<String, Integer> dueMap = new OverDueMap<>(13);
-		dueMap.put("10001", 1);
-		dueMap.put("10002", 2);
-		dueMap.put("10003", 4);
-		dueMap.put("10004", 5);
-		System.out.println(dueMap.size());
-		System.out.println(dueMap.get("10001"));
+//		OverDueMap<String, Integer> dueMap = new OverDueMap<>(13);
+//		dueMap.put("10001", 1);
+//		dueMap.put("10002", 2);
+//		dueMap.put("10003", 4);
+//		dueMap.put("10004", 5);
+//		System.out.println(dueMap.size());
+//		System.out.println(dueMap.get("10001"));
 	}
 
 	@Test

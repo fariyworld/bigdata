@@ -1,0 +1,14 @@
+eci1,s1apid1,timestamp1,a
+eci1,s1apid1,timestamp2,a
+eci1,s1apid1,timestamp3,a
+eci1,s1apid1,timestamp4,a
+eci2,s1apid2,timestamp1,b
+eci2,s1apid2,timestamp2,b
+eci3,s1apid3,timestamp1,c
+eci3,s1apid3,timestamp2,c
+eci3,s1apid3,timestamp3,c
+eci4,s1apid4,timestamp1,d
+eci4,s1apid4,timestamp3,d
+eci4,s1apid4,timestamp4,d
+eci4,s1apid4,timestamp6,d
+eci4,s1apid4,timestamp7,d

@@ -1,15 +1,24 @@
 package test.parquet;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.parquet.example.data.Group;
 import org.apache.parquet.example.data.simple.NanoTime;
+import org.apache.parquet.hadoop.ParquetFileReader;
 import org.apache.parquet.hadoop.ParquetReader;
 import org.apache.parquet.hadoop.example.GroupReadSupport;
+import org.apache.parquet.hadoop.metadata.ParquetMetadata;
 import org.apache.parquet.io.api.Binary;
+import org.apache.parquet.schema.MessageType;
+import org.apache.parquet.schema.Type;
+import org.junit.Test;
 
+import static org.apache.parquet.format.converter.ParquetMetadataConverter.NO_FILTER;
 import jodd.datetime.JDateTime;
 
 public class ParquetReadTest {
@@ -27,7 +36,11 @@ public class ParquetReadTest {
 		ParquetReader<Group> reader = ParquetReader.builder(readSupport, new Path(inPath)).build();
 		Group line = null;
 		while ((line = reader.read()) != null) {
+//			System.out.println(line.toString());
 			System.out.println(getTimestamp(line.getInt96("start_time", 0)));
+			System.out.println(line.getBinary("mme_group_id", 0));
+//			System.out.println(line.getLong("mme_group_id", 0));
+			System.out.println(line.getString("mme_group_id", 0));
 			return;
 		}
 	}
@@ -58,5 +71,27 @@ public class ParquetReadTest {
 		ts.setNanos((int) nanos);
 		System.out.println(ts);
 		return ts.getTime();
+	}
+
+	@Test
+	public void test() {
+		Configuration conf = new Configuration();
+		String filePath = "D:\\BONC\\Shanxi\\data\\parquet\\002186_0.0";
+		try {
+			ParquetMetadata parquetMetadata = ParquetFileReader.readFooter(conf, new Path(filePath), NO_FILTER);
+			// 获取 parquet 格式文件的全部 schema
+			MessageType schema = parquetMetadata.getFileMetaData().getSchema();
+			System.out.println(schema.toString());
+			List<Type> fields = schema.getFields();
+			for (Type field : fields) {
+				System.out.println(field.getName());
+			}
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

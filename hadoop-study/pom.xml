@@ -16,21 +16,21 @@
 			<groupId>org.apache.hadoop</groupId>
 			<artifactId>hadoop-common</artifactId>
 			<version>${hadoop.version}</version>
-			<!-- <scope>provided</scope> -->
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.hadoop</groupId>
 			<artifactId>hadoop-hdfs</artifactId>
 			<version>${hadoop.version}</version>
-			<!-- <scope>provided</scope> -->
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.hadoop</groupId>
 			<artifactId>hadoop-client</artifactId>
 			<version>${hadoop.version}</version>
-			<!-- <scope>provided</scope> -->
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.parquet</groupId>
@@ -43,13 +43,12 @@
 			<artifactId>jodd</artifactId>
 			<version>${jodd.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.bonc</groupId>
-			<artifactId>decodeMR</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/decodeMR.jar</systemPath>
-		</dependency>
+	    <!-- redis.clients/jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
 
 	</dependencies>
 

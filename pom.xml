@@ -33,6 +33,7 @@
 		<log4j.version>1.2.17</log4j.version>
 		<parquet.version>1.8.1</parquet.version>
 		<jodd.version>3.3.8</jodd.version> 
+		<jedis.version>2.9.0</jedis.version>
 	</properties>
 
 	<dependencies>
