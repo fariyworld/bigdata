@@ -12,6 +12,7 @@ public class TestReducer extends Reducer<TestKey, Text, NullWritable, Text> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TestReducer.class);
 	private int count;
+	NullWritable outkey = NullWritable.get();
 	
 	@Override
 	protected void setup(Reducer<TestKey, Text, NullWritable, Text>.Context context)
@@ -28,6 +29,7 @@ public class TestReducer extends Reducer<TestKey, Text, NullWritable, Text> {
 		LOGGER.info("key: {}", key);
 		for (Text value : values) {
 			LOGGER.info("value: {}", value);
+			context.write(outkey, value);
 		}
 		LOGGER.info("一组values迭代结束");
 	}

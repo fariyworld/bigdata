@@ -20,7 +20,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.version>3.6.0</maven.compiler.version>
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-		<maven.compiler.jdk.version>1.7</maven.compiler.jdk.version>
+		<maven.compiler.jdk.version>1.8</maven.compiler.jdk.version>
 		<maven.scala.plugin.version>2.15.2</maven.scala.plugin.version>
 		<hadoop.version>2.7.5</hadoop.version>
 		<spark.version>2.3.1</spark.version>
@@ -34,6 +34,7 @@
 		<parquet.version>1.8.1</parquet.version>
 		<jodd.version>3.3.8</jodd.version> 
 		<jedis.version>2.9.0</jedis.version>
+		<common-lang3.version>3.4</common-lang3.version>
 	</properties>
 
 	<dependencies>

@@ -39,9 +39,7 @@ public class SpoutMessageScheme implements Scheme {
 	public static String byteBufferToString(ByteBuffer buffer) {
 		CharBuffer charBuffer = null;
 		try {
-			Charset charset = Charset.forName("UTF-8");
-			CharsetDecoder decoder = charset.newDecoder();
-			charBuffer = decoder.decode(buffer);
+			charBuffer = Charset.forName("UTF-8").newDecoder().decode(buffer);
 			buffer.flip();
 			return charBuffer.toString();
 		} catch (Exception ex) {

@@ -1,8 +1,10 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
+encoding//src/main/java/miscellaneous/DateUtil.java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/resources/kafkaConsumerConfig.properties=UTF-8
 encoding//src/main/resources/kafkaProducerConfig.properties=UTF-8
 encoding//src/test/java=UTF-8
+encoding//src/test/java/test/App03.java=UTF-8
 encoding//src/test/resources=UTF-8
 encoding/<project>=UTF-8

@@ -25,6 +25,10 @@ public class RedisUtil {
      */
     private String AUTH;
     /*
+     * redis数据库索引 select 3
+     */
+    private int INDEX;
+    /*
      * 可用连接实例的最大数目，默认值为8
      * 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)
      */
@@ -64,11 +68,13 @@ public class RedisUtil {
 	public RedisUtil(Configuration conf) {
     	this.ADDR_ARRAY = conf.get("ADDR_ARRAY");
     	this.AUTH = conf.get("AUTH");
+    	this.INDEX = conf.getInt("REDIS_INDEX", 0);
     	this.MAX_ACTIVE = conf.getInt("MAX_ACTIVE", 8);
     	this.MAX_IDLE = conf.getInt("MAX_IDLE", 4);
     	this.MAX_WAIT = conf.getInt("MAX_WAIT", -1);
     	this.TIMEOUT = conf.getInt("TIMEOUT", 0);
     	this.hasCluster = conf.getBoolean("isCluster", false);
+    	LOGGER.info("连接地址:[{}], 密码:[{}], 库:[{}], 最大连接数:[{}}, 最大空闲数:[{}], 最大允许等待时间:[{}], 超时:[{}], 是否集群:[{}]", ADDR_ARRAY, AUTH, INDEX, MAX_ACTIVE, MAX_IDLE, MAX_WAIT, TIMEOUT, hasCluster);
     	initialPool();
 	}
 
@@ -106,9 +112,9 @@ public class RedisUtil {
     		// 如果密码有配置
             if (StringUtils.isNotBlank(AUTH)) {
                 // 如果密码不为空
-                jedisPool = new JedisPool(poolConfig, ADDR_ARRAY.split(";")[0].split(":")[0], Integer.parseInt(ADDR_ARRAY.split(";")[0].split(":")[1]), TIMEOUT, AUTH);
+                jedisPool = new JedisPool(poolConfig, ADDR_ARRAY.split(";")[0].split(":")[0], Integer.parseInt(ADDR_ARRAY.split(";")[0].split(":")[1]), TIMEOUT, AUTH, INDEX);
             } else {
-                jedisPool = new JedisPool(poolConfig, ADDR_ARRAY.split(";")[0].split(":")[0], Integer.parseInt(ADDR_ARRAY.split(";")[0].split(":")[1]), TIMEOUT);
+                jedisPool = new JedisPool(poolConfig, ADDR_ARRAY.split(";")[0].split(":")[0], Integer.parseInt(ADDR_ARRAY.split(";")[0].split(":")[1]), TIMEOUT, null, INDEX);
             }
     	}
     }

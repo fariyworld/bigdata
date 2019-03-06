@@ -27,13 +27,12 @@ public class SplitWordBolt extends BaseRichBolt {
 	
 	private Person _person;
 	
-//	@Override
-//	public Map<String, Object> getComponentConfiguration() {
-//		// return super.getComponentConfiguration();
-//		Config config = new Config();
-//		config.put(Config.TOPOLOGY_TICK_TUPLE_FREQ_SECS, 10);
-//		return config;
-//	}
+	@Override
+	public Map<String, Object> getComponentConfiguration() {
+		Config config = new Config();
+		config.put(Config.TOPOLOGY_TICK_TUPLE_FREQ_SECS, 10);
+		return config;
+	}
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SplitWordBolt.class);
 	
@@ -49,8 +48,8 @@ public class SplitWordBolt extends BaseRichBolt {
 		}
 		this._collector = collector;
 		_person = new Person("mace");
-//		LOGGER.info("person static field L0 == " + Person.L0 + "\t-------------------------------------------");
-//		LOGGER.info("person static field L0 == " + _person.L0 + "\t-------------------------------------------");
+		LOGGER.info("person static field L0 == " + Person.L0 + "\t-------------------------------------------");
+		LOGGER.info("person static field L0 == " + _person.L0 + "\t-------------------------------------------");
 	}
 
 	
@@ -63,7 +62,7 @@ public class SplitWordBolt extends BaseRichBolt {
 			LOGGER.debug("2.execute(Tuple input)...");
 			LOGGER.debug("input mid == " + input.getMessageId());
 		}
-//		LOGGER.info("current name == " + _person.getName() + "\t-------------------------------------------");
+		LOGGER.info("current name == " + _person.getName() + "\t-------------------------------------------");
 //		if(StormUtil.isTickTuple(input)){
 //			LOGGER.info("tick tuple to update personName" + "\t-------------------------------------------");
 //			_person.setName("fariy");
@@ -77,8 +76,10 @@ public class SplitWordBolt extends BaseRichBolt {
 			}
 			_collector.ack(input);
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			LOGGER.info("tick tuple ................................");
 			if(StormUtil.isTickTuple(input)){
-//				LOGGER.info("tick tuple to update personName" + "\t-------------------------------------------");
+				LOGGER.info("tick tuple to update personName" + "\t-------------------------------------------");
 				_person = new Person("fariy");
 				return;
 			}

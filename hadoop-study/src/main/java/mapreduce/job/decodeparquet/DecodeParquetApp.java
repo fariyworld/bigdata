@@ -77,8 +77,8 @@ public class DecodeParquetApp {
         job.setJarByClass(DecodeParquetApp.class);
         job.setJobName("parquet");
 
-        String in = args[0];
-        String  out = args[1];
+        String in = "D:\\BONC\\Shanxi\\data\\parquet\\002186_0.0";
+        String out = "D:\\BONC\\Shanxi\\data\\parquet\\out";
         
         job.setMapperClass(WordCountMap.class);
         job.setInputFormatClass(ParquetInputFormat.class);
@@ -97,10 +97,7 @@ public class DecodeParquetApp {
             fileSystem.delete(path, true);
             System.out.println(out+"已存在，删除");
         }
- 
         job.waitForCompletion(true);
-
-
 	}
 	
 	public static final long NANOS_PER_SECOND = 1000000000;

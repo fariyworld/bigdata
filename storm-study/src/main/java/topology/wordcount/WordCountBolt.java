@@ -49,8 +49,8 @@ public class WordCountBolt extends BaseRichBolt  {
 			LOGGER.debug("input mid == " + input.getMessageId());
 		}
 		if (StormUtil.isTickTuple(input)) {
-//			LOGGER.info("word size " + set.size() + "------------------------------------------------------------");
-//			LOGGER.info("words: " + set.toString() + "------------------------------------------------------------");
+			LOGGER.info("word size " + set.size() + "------------------------------------------------------------");
+			LOGGER.info("words: " + set.toString() + "------------------------------------------------------------");
 			return;
 		}
 		String word = input.getStringByField("word");

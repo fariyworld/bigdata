@@ -62,7 +62,7 @@ public class TestKey implements Serializable, WritableComparable<TestKey> {
 	
 	@Override
 	public int compareTo(TestKey o) {
-		LOGGER.info("调用了compareTo()....................");
+		LOGGER.info("调用了TestKey.compareTo()....................");
 		try {
 			Thread.sleep(1000L);
 		} catch (InterruptedException e) {
@@ -84,7 +84,7 @@ public class TestKey implements Serializable, WritableComparable<TestKey> {
 
 	@Override
 	public int hashCode() {
-		LOGGER.info("调用了hashCode()....................");
+		LOGGER.info("调用了TestKey.hashCode()....................");
 		try {
 			Thread.sleep(1000L);
 		} catch (InterruptedException e) {
@@ -101,6 +101,12 @@ public class TestKey implements Serializable, WritableComparable<TestKey> {
 
 	@Override
 	public boolean equals(Object obj) {
+		LOGGER.info("调用了TestKey.equals()....................");
+		try {
+			Thread.sleep(1000L);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		if (this == obj)
 			return true;
 		if (obj == null)

@@ -1,5 +1,8 @@
 package test.hadoop;
 
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.IntWritable;
 import org.junit.Test;
@@ -42,6 +45,18 @@ public class App01 {
 		IntWritable intWritable = new IntWritable(1);
 		System.out.println(intWritable.hashCode());
 		
+		
+	}
+	
+	@Test
+	public void test03(){
+		IntWritable a = new IntWritable(1);
+		IntWritable b = new IntWritable(2);
+		System.out.println(a.compareTo(b));
+	}
+	
+	@Test
+	public void test04(){
 		
 	}
 }

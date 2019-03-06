@@ -12,6 +12,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.CombineTextInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 import org.apache.parquet.example.data.Group;
 import org.apache.parquet.hadoop.ParquetInputFormat;
 import org.apache.parquet.hadoop.api.DelegatingReadSupport;
@@ -21,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import mapreduce.input.filter.RegexPathFilter;
+import mapreduce.output.format.RedisOutPutFormat;
 
 public class ExampleApp {
 
@@ -53,8 +55,11 @@ public class ExampleApp {
 			conf.set("MME_FORMAT", "txt");
 			conf.setInt("reduceNum", 2);
 //			conf.set("ADDR_ARRAY", "118.25.229.83:6379");
-			conf.set("ADDR_ARRAY", "118.25.229.83:12301;118.25.229.83:12302;118.25.229.83:12303");
+//			conf.setInt("REDIS_INDEX", 1);
+			conf.set("ADDR_ARRAY", "172.27.0.13:12301;172.27.0.13:12302;172.27.0.13:12303");
+//			conf.setBoolean("isCluster", false);
 			conf.setBoolean("isCluster", true);
+			conf.set("AUTH", "liuye0425@+.");
 			
 			//TODO 设置MapReduce运行配置
 			// 队列名
@@ -183,8 +188,8 @@ public class ExampleApp {
 				fileSystem.delete(outputPath, true);
 				LOGGER.info("{} 输出路径存在，已删除！", outpath);
 			}
+			job.setOutputFormatClass(RedisOutPutFormat.class);
 			FileOutputFormat.setOutputPath(job, outputPath);
-			
 			// 将reduce输出文件不压缩
 			FileOutputFormat.setCompressOutput(job, false);
 
@@ -198,8 +203,6 @@ public class ExampleApp {
 			
 			// 设置reducer个数为1
 			job.setNumReduceTasks(conf.getInt("reduceNum", 1));
-			// 将reduce输出文件不压缩
-			FileOutputFormat.setCompressOutput(job, false);
 			
 			if (job.waitForCompletion(true)) {
 				// 作业完成后日志统计  计数器
