@@ -59,7 +59,6 @@ public class App03 {
         System.out.println(list);
         for(Iterator<Integer> iterator = list.iterator(); iterator.hasNext();){
             Integer value = iterator.next();
-//            System.out.println(value);
             if(value%2 == 0){
                 iterator.remove();
                 System.out.println("delete " + value + " success");

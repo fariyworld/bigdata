@@ -128,7 +128,7 @@
 				<artifactId>maven-scala-plugin</artifactId>
 				<version>${maven.scala.plugin.version}</version>
 				<configuration>
-					<scalaCompatVersion>2.11</scalaCompatVersion>
+					<scalaVersion>2.11</scalaVersion>
 				</configuration>
 				<executions>
 					<execution>

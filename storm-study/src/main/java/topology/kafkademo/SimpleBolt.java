@@ -40,6 +40,8 @@ public class SimpleBolt implements IRichBolt {
             return;
         }
         LOGGER.info("topic:{}, partition:{}, message:{}", input.getStringByField("topic"), input.getIntegerByField("partition"), input.getStringByField("value"));
+        //模拟消息处理失败
+//        _collector.fail(input);
         _collector.emit(new Values(null, String.format("%s-%s:%s", input.getStringByField("topic"), input.getIntegerByField("partition"), input.getStringByField("value"))));
     }
 
